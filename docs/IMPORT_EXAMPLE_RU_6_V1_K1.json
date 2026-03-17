@@ -1,0 +1,240 @@
+{
+  "format_version": "1.0",
+  "source": {
+    "type": "pdf",
+    "title": "ВПР 2026 Русский язык 6 класс Вариант 1 К1",
+    "original_file": "vpr26-6kl-ru-v1_k1.pdf",
+    "answer_source_file": "vpr26-6kl-ru-v1-o_k1.pdf"
+  },
+  "assessment": {
+    "title": "ВПР 2026 Русский язык 6 класс Вариант 1",
+    "subject_code": "ru",
+    "grade_code": "6",
+    "assessment_kind": "vpr_official_style",
+    "year_label": "2026",
+    "duration_minutes": 45,
+    "description": "Тренировочный вариант ВПР по русскому языку"
+  },
+  "grading_scale": {
+    "title": "Шкала ВПР 2026 Русский язык 6 класс",
+    "max_primary_score": 25,
+    "ranges": [
+      {
+        "grade_label": "2",
+        "min_score": 0,
+        "max_score": 12
+      },
+      {
+        "grade_label": "3",
+        "min_score": 13,
+        "max_score": 16
+      },
+      {
+        "grade_label": "4",
+        "min_score": 17,
+        "max_score": 20
+      },
+      {
+        "grade_label": "5",
+        "min_score": 21,
+        "max_score": 25
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "Основная часть",
+      "position": 1,
+      "questions": [
+        {
+          "external_number": "1",
+          "question_type_code": "open_response",
+          "checking_mode": "manual_rubric",
+          "prompt_html": "<p>Спишите текст, раскрывая скобки, вставляя, где это необходимо, пропущенные буквы и знаки препинания.</p>",
+          "max_score": 9,
+          "requires_manual_review": true,
+          "rubric": {
+            "title": "Критерии задания 1",
+            "scoring_mode": "sum",
+            "criteria": [
+              {
+                "code": "1K1",
+                "title": "Соблюдение орфографических норм",
+                "max_points": 4,
+                "levels": [
+                  {
+                    "points": 4,
+                    "description": "Орфографических ошибок нет или допущена одна негрубая ошибка."
+                  },
+                  {
+                    "points": 3,
+                    "description": "Допущено не более двух ошибок."
+                  },
+                  {
+                    "points": 2,
+                    "description": "Допущены три-четыре ошибки."
+                  },
+                  {
+                    "points": 1,
+                    "description": "Допущены пять ошибок."
+                  },
+                  {
+                    "points": 0,
+                    "description": "Допущено более пяти ошибок."
+                  }
+                ]
+              },
+              {
+                "code": "1K2",
+                "title": "Соблюдение пунктуационных норм",
+                "max_points": 3,
+                "levels": [
+                  {
+                    "points": 3,
+                    "description": "Пунктуационных ошибок нет."
+                  },
+                  {
+                    "points": 2,
+                    "description": "Допущена одна ошибка."
+                  },
+                  {
+                    "points": 1,
+                    "description": "Допущены две ошибки."
+                  },
+                  {
+                    "points": 0,
+                    "description": "Допущено более двух ошибок."
+                  }
+                ]
+              },
+              {
+                "code": "1K3",
+                "title": "Правильность списывания текста",
+                "max_points": 2,
+                "levels": [
+                  {
+                    "points": 2,
+                    "description": "Текст переписан безошибочно или допущено не более трёх описок."
+                  },
+                  {
+                    "points": 1,
+                    "description": "Допущены четыре–семь описок."
+                  },
+                  {
+                    "points": 0,
+                    "description": "Допущено более семи описок."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "external_number": "2",
+          "question_type_code": "language_analysis",
+          "checking_mode": "manual_rubric",
+          "prompt_html": "<p>Выполните обозначенный цифрами в тексте языковой анализ слов: 2 – морфемный и словообразовательный анализ слова; 3 – морфологический анализ слова.</p>",
+          "max_score": 9,
+          "requires_manual_review": true,
+          "rubric": {
+            "title": "Критерии задания 2",
+            "scoring_mode": "sum",
+            "criteria": [
+              {
+                "code": "2K1",
+                "title": "Выполнение морфемного анализа",
+                "max_points": 3
+              },
+              {
+                "code": "2K2",
+                "title": "Выполнение словообразовательного анализа",
+                "max_points": 3
+              },
+              {
+                "code": "2K3",
+                "title": "Выполнение морфологического анализа",
+                "max_points": 3
+              }
+            ]
+          }
+        },
+        {
+          "external_number": "3",
+          "question_type_code": "open_response",
+          "checking_mode": "manual_open",
+          "prompt_html": "<p>Опираясь на текст, ответьте на вопрос: чему учил актёров К. С. Станиславский?</p>",
+          "max_score": 2,
+          "requires_manual_review": true,
+          "answers": [
+            {
+              "answer_kind": "reference_text",
+              "answer_value": "К. С. Станиславский учил своих актёров не изображать, а переживать чувства героев."
+            }
+          ]
+        },
+        {
+          "external_number": "4",
+          "question_type_code": "compound_open_response",
+          "checking_mode": "manual_rubric",
+          "prompt_html": "<p>Из первого предложения текста выпишите многозначное слово со значением «возникла, началась». Самостоятельно составьте и запишите предложение, в котором данное многозначное слово употреблялось бы в другом значении.</p>",
+          "max_score": 3,
+          "requires_manual_review": true,
+          "response_structure": {
+            "parts": [
+              {
+                "code": "word",
+                "type": "short_text",
+                "label": "Многозначное слово"
+              },
+              {
+                "code": "sentence",
+                "type": "open_text",
+                "label": "Предложение"
+              }
+            ]
+          },
+          "rubric": {
+            "title": "Критерии задания 4",
+            "scoring_mode": "sum",
+            "criteria": [
+              {
+                "code": "4_1",
+                "title": "Распознавание многозначного слова",
+                "max_points": 1
+              },
+              {
+                "code": "4_2",
+                "title": "Составление предложения",
+                "max_points": 2
+              }
+            ]
+          }
+        },
+        {
+          "external_number": "5",
+          "question_type_code": "multi_field_text",
+          "checking_mode": "hybrid",
+          "prompt_html": "<p>Найдите и исправьте ошибку(-и) в образовании формы (форм) слова (слов). Запишите правильный вариант формы (форм) слова (слов).</p>",
+          "max_score": 2,
+          "requires_manual_review": false,
+          "answers": [
+            {
+              "answer_kind": "set",
+              "answer_value": [
+                "к их профессору",
+                "хлеб более свежий"
+              ]
+            },
+            {
+              "answer_kind": "set",
+              "answer_value": [
+                "к их профессору",
+                "хлеб свежее"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
