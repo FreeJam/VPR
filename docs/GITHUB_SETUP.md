@@ -8,14 +8,13 @@
 - стартовый коммит уже создан
 - `origin` уже добавлен: `git@github.com:FreeJam/VPR.git`
 - локальный `git user.email`: `Artik.lbt@gmail.com`
-- локальный SSH-ключ уже создан: `C:\Users\Artik\.ssh\id_ed25519_freejam_github`
+- локальный SSH-ключ уже создан: `C:\Users\Artik\.ssh\id_ed25519_freejam_github_auto`
+- SSH-аутентификация с GitHub проверена
+- ветка `main` уже опубликована в `origin/main`
 
 ## Можно ли подключить проект к GitHub
 Да.
-Локальный git уже подготовлен, поэтому теперь нужно:
-1. убедиться, что репозиторий `FreeJam/VPR` существует на GitHub
-2. добавить публичный SSH-ключ в GitHub
-3. выполнить `push`
+Подключение уже выполнено по SSH.
 
 ## Вариант 1. Через сайт GitHub
 
@@ -38,8 +37,9 @@ git push -u origin main
 
 Для этого workspace уже подготовлено:
 - `origin = git@github.com:FreeJam/VPR.git`
-- локальный ключ: `C:\Users\Artik\.ssh\id_ed25519_freejam_github`
-- публичный ключ нужно добавить в GitHub account settings
+- локальный ключ: `C:\Users\Artik\.ssh\id_ed25519_freejam_github_auto`
+- публичный ключ уже добавлен в GitHub account settings
+- `git push -u origin main` уже выполнен успешно
 
 ## Вариант 3. Через GitHub CLI
 Сейчас `gh` не установлен.
@@ -69,11 +69,6 @@ gh repo create <repo-name> --private --source . --remote origin --push
 4. подключение `origin`
 5. push ветки `main`
 
-## Что потребуется от пользователя для полного подключения
-- URL GitHub-репозитория
-- и один из способов аутентификации:
-  - Personal Access Token для HTTPS
-  - или добавленный SSH-ключ
-
-Одного email недостаточно для реального `push` в GitHub.
-Без URL репозитория и способа аутентификации я не смогу привязать настоящий удаленный `origin`.
+## Практический итог
+Репозиторий подключен к GitHub через SSH и готов к дальнейшей разработке.
+Следующий разумный шаг - создать Laravel 11 каркас и выполнить первый кодовый commit.
