@@ -6,16 +6,16 @@
 - `gh` CLI не установлен
 - ветка: `main`
 - стартовый коммит уже создан
-- `origin` пока не добавлен
+- `origin` уже добавлен: `git@github.com:FreeJam/VPR.git`
 - локальный `git user.email`: `Artik.lbt@gmail.com`
+- локальный SSH-ключ уже создан: `C:\Users\Artik\.ssh\id_ed25519_freejam_github`
 
 ## Можно ли подключить проект к GitHub
 Да.
 Локальный git уже подготовлен, поэтому теперь нужно:
-1. создать пустой репозиторий на GitHub
-2. добавить `origin`
-3. настроить аутентификацию
-4. выполнить `push`
+1. убедиться, что репозиторий `FreeJam/VPR` существует на GitHub
+2. добавить публичный SSH-ключ в GitHub
+3. выполнить `push`
 
 ## Вариант 1. Через сайт GitHub
 
@@ -35,6 +35,11 @@ git push -u origin main
 git remote add origin git@github.com:<owner>/<repo>.git
 git push -u origin main
 ```
+
+Для этого workspace уже подготовлено:
+- `origin = git@github.com:FreeJam/VPR.git`
+- локальный ключ: `C:\Users\Artik\.ssh\id_ed25519_freejam_github`
+- публичный ключ нужно добавить в GitHub account settings
 
 ## Вариант 3. Через GitHub CLI
 Сейчас `gh` не установлен.
@@ -68,7 +73,7 @@ gh repo create <repo-name> --private --source . --remote origin --push
 - URL GitHub-репозитория
 - и один из способов аутентификации:
   - Personal Access Token для HTTPS
-  - или уже настроенный SSH-ключ
+  - или добавленный SSH-ключ
 
 Одного email недостаточно для реального `push` в GitHub.
 Без URL репозитория и способа аутентификации я не смогу привязать настоящий удаленный `origin`.
