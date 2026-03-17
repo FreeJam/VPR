@@ -2,48 +2,55 @@
 
 ## Срез на 2026-03-18
 
-### Что есть сейчас
-- корень проекта содержит только папку `docs`
-- кодовой базы Laravel пока нет
-- git в этой папке уже инициализирован
-- GitHub CLI `gh` не установлен
-- установлен `git version 2.53.0.windows.1`
-- текущая ветка: `main`
-- создан стартовый коммит: `be7edc4`
-- локальный `origin` подключен: `git@github.com:FreeJam/VPR.git`
-- локальный `git user.email`: `Artik.lbt@gmail.com`
-- локальный SSH-ключ для GitHub создан и подтвержден
-- путь активного ключа: `C:\Users\Artik\.ssh\id_ed25519_freejam_github_auto`
-- ветка `main` уже отправлена в `origin/main`
+## Репозиторий
+- git-репозиторий инициализирован
+- удаленный `origin`: `git@github.com:FreeJam/VPR.git`
+- ветка разработки: `main`
+- GitHub-подключение по SSH рабочее
+- `.tools/` и `__laravel_bootstrap/` исключены из репозитория как локальные артефакты
 
-### Что уже подготовлено документами
-- целевой стек проекта
-- целевая архитектура модулей
-- перечень таблиц и связей
-- формат импорта `v1.0`
-- пример импортного JSON и JSON Schema
-- общий roadmap реализации
+## Кодовая база
+- Laravel `11.49.0`
+- Laravel Breeze `2.4.1`
+- Blade + Alpine.js + Tailwind CSS
+- локальный dev database: SQLite
+- production target по документации: MySQL 8
 
-## Зафиксированные продуктовые решения
-- стек: Laravel 11 + MySQL 8 + Blade + Alpine.js + Tailwind CSS
-- роли: `admin`, `teacher`, `student`, `parent`
-- импорт: JSON `v1.0`, импорт всегда в `draft`
-- критерии оценивания: rubric-модель, без колонок `K1/K2/...`
-- target deployment: обычный PHP-хостинг
+## Что реализовано
+- auth, registration, profile, email verification
+- роли `admin`, `teacher`, `student`, `parent`
+- dashboards по ролям и role redirect
+- академические справочники и базовые seeders
+- teacher/student/parent profiles и demo links
+- import pipeline: upload -> validate -> preview -> import
+- assessments catalogue и assessment details
+- teacher -> student assignments
+- student attempts with draft/save/submit flow
+- auto scoring для objective questions
+- manual review queue и rubric-based scoring
+- recalculation of final score and grade label
 
-## Что еще не сделано
-- создание Laravel-проекта
-- настройка `.env`
-- миграции
-- модели
-- auth
-- UI
-- тесты
+## Что проверено
+- `php artisan test` -> `33 passed`, `110 assertions`
+- `php artisan migrate:fresh --seed` -> проходит
+- `php artisan route:list --except-vendor` -> маршруты поднимаются
+- `composer audit` -> advisories not found
+- `npm audit --omit=dev` -> vulnerabilities not found
+- `npm run build` -> production build проходит
+
+## Демо-пользователи
+- `admin@vpr.local` / `password`
+- `teacher@vpr.local` / `password`
+- `student@vpr.local` / `password`
+- `parent@vpr.local` / `password`
 
 ## Практический вывод
-Сейчас это стадия проектирования.
-GitHub-связка уже работает.
-Следующая реальная инженерная задача - создать Laravel-каркас и начать переводить проект из документации в код.
+Проект уже не находится в стадии проектирования.
+Сейчас есть рабочий Laravel MVP, который можно пройти вручную через import -> assignment -> attempt -> review.
 
-## Правило для следующих сессий
-Если в проекте по-прежнему нет кода, считать `docs` единственным источником правды и при любых новых решениях сначала обновлять документацию, затем реализацию.
+## Наиболее полезные документы для следующей сессии
+1. `LOCAL_DEVELOPMENT.md`
+2. `PROJECT_ARCHITECTURE.md`
+3. `IMPLEMENTATION_ROADMAP.md`
+4. `TESTING_PLAN.md`
+5. `DECISIONS_LOG.md`

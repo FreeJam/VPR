@@ -1,253 +1,54 @@
 # IMPLEMENTATION ROADMAP
 
-## Текущее положение
-На дату `2026-03-17` в проекте есть только документация в папке `docs`.
-Значит, фактическая стадия сейчас находится еще до создания Laravel-каркаса.
+## Фактическая стадия на 2026-03-18
+Базовый MVP уже собран и проверен.
 
-## Цель roadmap
-Собрать проект поэтапно так, чтобы:
-- не ломать архитектуру
-- как можно раньше получить рабочий MVP
-- оставить место для роста
-- не переписывать базу после добавления импорта, ручной проверки и ролей
+## Уже завершено
+- git + GitHub setup
+- Laravel 11 bootstrap
+- Breeze auth
+- роли и role-based dashboards
+- академические справочники и seeders
+- teacher/student/parent demo links
+- import module `v1.0`
+- assessment catalogue
+- assignments teacher -> student
+- attempts with draft/save/submit
+- auto scoring
+- manual review queue
+- feature and unit tests для ключевых сценариев
 
-## Этап -1. Подготовка репозитория
+## Текущий рабочий MVP
+1. учитель импортирует JSON
+2. учитель открывает assessment и создает assignment
+3. ученик проходит attempt
+4. система считает objective questions
+5. teacher завершает manual review
+6. итоговая оценка пересчитывается
 
-### Что сделать
-- инициализировать git
-- создать GitHub-репозиторий и подключить `origin`
-- зафиксировать `docs` как стартовую документацию
+## Следующие этапы
 
-### Результат
-Есть нормальная история изменений еще до появления кода.
+### Этап A. Teacher operations polish
+- teacher groups UI
+- назначения по группам
+- список linked students и заявки
+- более детальная страница результатов
 
-## Этап 0. Подготовка проекта
-
-### Что сделать
-- создать новый Laravel 11 проект в корне
-- подключить MySQL
-- настроить `.env`
-- подключить Blade + Tailwind + Alpine.js
-- настроить базовую авторизацию
-- включить `storage:link`
-- подготовить сидеры и локальный dev-режим
-
-### Результат
-Есть чистый каркас проекта, готовый к разработке.
-
-## Этап 1. Базовая идентификация и роли
-
-### Что реализовать
-- `users`
-- `roles`
-- `user_roles`
-- сидеры для `admin`, `teacher`, `student`, `parent`
-- middleware и policies
-- базовые dashboard routes
-
-### Что должно работать
-- вход и регистрация
-- пользователь может иметь одну или несколько ролей
-- после входа попадает на свой dashboard
-
-## Этап 2. Академические справочники
-
-### Что реализовать
-- `grade_levels`
-- `subjects`
-- `subject_grade_offerings`
-- `academic_years`
-
-### Что должно работать
-- админ управляет классами и предметами
-- система знает, какие предметы доступны для каких классов
-
-## Этап 3. Профили и связи пользователей
-
-### Что реализовать
-- `teacher_profiles`
-- `teacher_codes`
-- `student_profiles`
-- `parent_profiles`
-- `parent_student_links`
-- `teacher_student_links`
-
-### Что должно работать
-- учитель получает код подключения
-- ученик может подать заявку по коду
-- учитель подтверждает или отклоняет заявку
-- родитель привязывается к ребенку
-
-## Этап 4. Группы учителя
-
-### Что реализовать
-- `teacher_groups`
-- `group_members`
-
-### Что должно работать
-- учитель создает группу
-- добавляет туда учеников
-- фильтрует результаты по группам
-
-## Этап 5. База контента
-
-### Что реализовать
-- `content_sources`
-- `assessments`
-- `assessment_versions`
-- `assessment_sections`
-- `question_types`
-- `questions`
-- `question_options`
-- `question_answers`
-
-### Что должно работать
-- админ может создавать тест вручную
-- у теста есть версии
-- у версии есть секции
-- у секции есть вопросы
-
-## Этап 6. Шкалы и критерии оценивания
-
-### Что реализовать
-- `rubrics`
-- `rubric_criteria`
-- `rubric_levels`
-- `grading_scales`
-- `grading_scale_ranges`
-
-### Что должно работать
-- можно задавать критерии K1/K2/K3 и любые другие
-- можно задавать шкалу перевода баллов в отметки
-- один вопрос может иметь rubric
-
-## Этап 7. Импортный модуль v1.0
-
-### Что реализовать
-- `import_batches`
-- `import_errors`
-- `assessment_import_links`
-- `AssessmentImportValidator`
-- `AssessmentPreviewBuilder`
-- `AssessmentImportMapper`
-- `AssessmentImportService`
-- import UI pages
-
-### Что должно работать
-- загрузка JSON
-- валидация
-- предпросмотр
-- импорт в `draft`
-- лог ошибок
-
-## Этап 8. Прохождение тестов учеником
-
-### Что реализовать
-- student test pages
-- навигация по заданиям
-- сохранение ответов
-- отправка работы
+### Этап B. Student results polish
 - история попыток
+- отдельная страница результата
+- улучшенный режим прохождения длинных работ
 
-### Таблицы
-- `assignments`
-- `attempts`
-- `attempt_question_answers`
+### Этап C. Parent and admin surface
+- parent progress/results pages
+- admin CRUD для предметов, классов, тестов и импортов
 
-## Этап 9. Автоматическая и гибридная проверка
+### Этап D. Advanced platform modules
+- analytics
+- notifications
+- gamification
+- activity log
 
-### Что реализовать
-- `AnswerCheckingService`
-- `GradeCalculationService`
-
-### Что должно работать
-- автопроверяемые задания считаются сразу
-- система определяет, что надо отправить на ручную проверку
-- при наличии шкалы считается предварительная отметка
-
-## Этап 10. Ручная проверка учителем
-
-### Что реализовать
-- `attempt_question_reviews`
-- `attempt_criterion_scores`
-- `attempt_comments`
-- `ManualReviewService`
-
-### Что должно работать
-- учитель видит очередь непроверенных работ
-- оценивает ответ по критериям
-- пишет комментарий
-- итоговая оценка пересчитывается
-
-## Этап 11. Назначения тестов
-
-### Что реализовать
-- teacher assignment UI
-- назначение группе
-- назначение отдельному ученику
-- сроки сдачи
-- лимит попыток
-- режимы `training`, `homework`, `exam`
-
-## Этап 12. Аналитика
-
-### Что реализовать
-- `topics`
-- `skills`
-- `student_question_stats`
-
-### Что показывать
-- слабые темы ученика
-- прогресс по предмету
-- статистику по группе
-- частые ошибки
-
-## Этап 13. Геймификация
-
-### Что реализовать
-- `achievement_definitions`
-- `user_achievements`
-- `title_definitions`
-- `user_titles`
-- `user_counters`
-- `AchievementService`
-
-## Этап 14. Родительский кабинет
-
-### Что реализовать
-- экран привязанных детей
-- просмотр прогресса ребенка
-- назначенные и выполненные работы
-- комментарии учителя
-
-## Этап 15. Уведомления и журнал событий
-
-### Что реализовать
-- `notifications`
-- `activity_logs`
-
-## Этап 16. Полировка и production readiness
-
-### Что сделать
-- feature tests
-- unit tests для валидаторов и проверки ответов
-- индексы БД
-- защита от дублей импорта
-- ограничения доступа через policies
-- mobile polish
-
-## MVP-последовательность
-Если нужно запуститься быстрее, минимальный порядок такой:
-1. git + Laravel setup
-2. auth + roles
-3. classes + subjects
-4. teacher/student links
-5. assessments/questions
-6. rubrics + grading scales
-7. import module
-8. attempts
-9. auto check
-10. manual review
-11. assignments
-
-После этих шагов получится рабочая базовая платформа.
+## Правило на ближайшие итерации
+Каждый следующий этап не должен ломать уже подтвержденный сценарий:
+`import -> assignment -> attempt -> review`.

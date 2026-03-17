@@ -1,76 +1,59 @@
 # MVP SCOPE
 
-## Цель MVP
-Получить первую рабочую версию платформы, в которой учитель может загрузить или создать тест, назначить его ученику, ученик может пройти работу, а система способна сохранить результат и поддержать ручную проверку.
+## Статус MVP
+На дату `2026-03-18` базовый MVP собран.
 
-## Входит в MVP
+## Что входит в текущий MVP
 
 ### Платформа
 - Laravel 11 проект
-- базовая auth-система
-- роли `admin`, `teacher`, `student`
-- базовые dashboard pages
+- Laravel Breeze auth
+- роли `admin`, `teacher`, `student`, `parent`
+- role-based dashboards
 
-### Справочники
+### Справочники и профили
 - классы 5-11
 - предметы
-- типы вопросов
-- учебный год
+- question types
+- teacher/student/parent profiles
+- teacher/student и parent/student demo links
 
-### Пользовательские связи
-- teacher profile
-- student profile
-- teacher codes
-- teacher-student links
-- teacher groups
-
-### Контент
+### Контент и импорт
 - assessments
-- assessment versions
+- versions
 - sections
 - questions
 - options
 - answers
+- import JSON `v1.0`
+- preview и import log
 
-### Оценивание
-- rubrics
-- rubric criteria
-- grading scales
-- авто- и ручные режимы проверки
-
-### Импорт
-- upload JSON
-- validate
-- preview
-- import в `draft`
-- import log
-
-### Прохождение тестов
-- assignments
-- attempts
-- answer saving
-- submission
-- basic results page
+### Назначения и попытки
+- assignment учитель -> ученик
+- start/save/submit attempt
+- хранение ответов
+- итоговые статусы попытки
 
 ### Проверка
-- базовая автопроверка для простых вопросов
-- ручная проверка open/rubric вопросов
-- итоговый пересчет балла
+- auto scoring для simple objective questions
+- manual review queue
+- rubric-based scoring
+- final score + grade label recalculation
 
-## Не входит в MVP
-- parent кабинет
-- расширенная аналитика
-- сложная геймификация
-- email/push уведомления
-- импорт PDF напрямую
-- background import jobs
-- export в Excel/CSV
-- multi-organization billing
+## Что пока вне MVP
+- teacher group assignment UI
+- student history/results pages как отдельный модуль
+- parent progress/results UI
+- advanced analytics
+- gamification
+- notifications
+- export/reporting
 
 ## Условие готовности MVP
-- админ или учитель может импортировать тест
-- учитель может назначить тест ученику или группе
-- ученик может пройти попытку
-- система сохраняет ответы и считает простые задания
-- учитель может вручную проверить сложные задания
-- участники видят итоговый результат
+Текущее условие выполнено, потому что:
+- teacher может импортировать тест
+- teacher может назначить тест ученику
+- student может пройти и отправить работу
+- система считает objective answers
+- teacher может вручную проверить сложные задания
+- итоговый score и grade сохраняются

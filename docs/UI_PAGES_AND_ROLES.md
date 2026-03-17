@@ -1,75 +1,55 @@
 # UI PAGES AND ROLES
 
-## Общий принцип
-В проекте должны быть отдельные кабинеты по ролям, но с единым базовым layout и общей системой статусов, навигации и таблиц.
+## Уже реализовано
 
-## Public
-- `/` - главная страница проекта
-- `/login` - вход
-- `/register` - регистрация
-- `/forgot-password` - восстановление пароля
+### Public
+- `/`
+- `/login`
+- `/register`
+- `/forgot-password`
 
-## Admin
-- `/admin` - dashboard
-- `/admin/users` - пользователи
-- `/admin/roles` - роли
-- `/admin/grades` - классы
-- `/admin/subjects` - предметы
-- `/admin/assessments` - тесты
-- `/admin/imports` - импорты
-- `/admin/achievements` - достижения
+### Admin
+- `/admin`
 
-## Teacher
-- `/teacher` - dashboard
-- `/teacher/profile` - профиль
-- `/teacher/students` - мои ученики
-- `/teacher/requests` - заявки на подключение
-- `/teacher/groups` - группы
-- `/teacher/codes` - коды подключения
-- `/teacher/assessments` - мои тесты
-- `/teacher/imports` - импорт
-- `/teacher/assignments` - назначения
-- `/teacher/reviews` - очередь проверки
-- `/teacher/results` - результаты
-- `/teacher/analytics` - аналитика
+### Teacher
+- `/teacher`
+- `/imports`
+- `/imports/create`
+- `/imports/{importBatch}`
+- `/imports/{importBatch}/preview`
+- `/assessments`
+- `/assessments/{assessment}`
+- `/assignments`
+- `/assignments/create?version={id}`
+- `/assignments/{assignment}`
+- `/reviews`
+- `/reviews/{review}`
 
-## Student
-- `/student` - dashboard
-- `/student/teacher-connect` - подключение к учителю
-- `/student/assignments` - назначенные работы
-- `/student/assessments` - каталог тестов
-- `/student/attempts` - история попыток
-- `/student/achievements` - достижения
-- `/student/progress` - прогресс
+### Student
+- `/student`
+- `/assignments`
+- `/assignments/{assignment}`
+- `/attempts/{attempt}`
 
-## Parent
-- `/parent` - dashboard
-- `/parent/children` - мои дети
-- `/parent/progress` - прогресс ребенка
-- `/parent/results` - результаты ребенка
+### Parent
+- `/parent`
 
-## Common resource pages
-- `/assessments/{assessment}` - карточка теста
-- `/attempts/{attempt}` - просмотр попытки
-- `/attempts/{attempt}/take` - прохождение
-- `/attempts/{attempt}/result` - результат
-- `/imports/{importBatch}` - карточка импорта
-- `/imports/{importBatch}/preview` - предпросмотр импорта
+### Common
+- `/profile`
+- `/dashboard`
 
-## Первые страницы для реализации
-1. auth pages
-2. dashboard redirect by role
-3. `admin` dashboard
-4. `teacher` dashboard
-5. `student` dashboard
-6. imports index/create/show/preview
-7. assignments list
-8. take attempt page
-9. review queue
+## Частично реализовано
+- parent role и link model есть, но отдельные results/progress pages пока не собраны
+- teacher groups и group members есть на уровне БД, но UI еще не сделан
+
+## Следующие UI-экраны
+1. teacher students / requests / groups / codes
+2. student results history
+3. parent children progress
+4. admin CRUD pages
 
 ## UI-принципы
-- крупные кликабельные элементы
-- понятные бейджи статусов
-- таблицы с фильтрами и пагинацией
-- отдельный режим фокуса для прохождения теста
-- отдельный режим фокуса для ручной проверки
+- единый app layout
+- понятные статусы и таблицы
+- быстрая навигация по teacher workflow
+- адаптивность без отдельного SPA

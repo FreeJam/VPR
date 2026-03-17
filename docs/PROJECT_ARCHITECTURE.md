@@ -3,29 +3,30 @@
 ## Назначение
 Платформа подготовки к ВПР для 5-11 классов на Laravel 11.
 
-## Текущее состояние
-Сейчас проект существует как набор проектных документов в папке `docs`.
-Код и Laravel-каркас еще не созданы.
+## Фактическое состояние
+На дату `2026-03-18` проект уже существует как рабочее Laravel-приложение, а не только как набор документов.
 
 ## Технологический стек
 - Laravel 11
-- MySQL 8
 - Blade
 - Alpine.js
 - Tailwind CSS
+- SQLite для локальной разработки
+- MySQL 8 остается целевым production storage
 
 ## Основные роли
-- admin
-- teacher
-- student
-- parent
+- `admin`
+- `teacher`
+- `student`
+- `parent`
 
-## Архитектурные модули
+## Реализованные модули
 
 ### 1. Identity
 - `users`
 - `roles`
 - `user_roles`
+- role redirect service
 
 ### 2. Academic
 - `grade_levels`
@@ -33,7 +34,7 @@
 - `subject_grade_offerings`
 - `academic_years`
 
-### 3. Profiles
+### 3. Profiles and links
 - `teacher_profiles`
 - `student_profiles`
 - `parent_profiles`
@@ -41,11 +42,7 @@
 - `teacher_student_links`
 - `teacher_codes`
 
-### 4. Groups
-- `teacher_groups`
-- `group_members`
-
-### 5. Content
+### 4. Content
 - `content_sources`
 - `assessments`
 - `assessment_versions`
@@ -55,12 +52,24 @@
 - `question_options`
 - `question_answers`
 
-### 6. Scoring
+### 5. Scoring
 - `rubrics`
 - `rubric_criteria`
 - `rubric_levels`
 - `grading_scales`
 - `grading_scale_ranges`
+- `AnswerCheckingService`
+- `GradeCalculationService`
+- `ManualReviewService`
+
+### 6. Import
+- `import_batches`
+- `import_errors`
+- `assessment_import_links`
+- `AssessmentImportService`
+- `AssessmentImportValidator`
+- `AssessmentPreviewBuilder`
+- `AssessmentImportMapper`
 
 ### 7. Assignments and attempts
 - `assignments`
@@ -69,84 +78,42 @@
 - `attempt_question_reviews`
 - `attempt_criterion_scores`
 - `attempt_comments`
+- `AttemptFlowService`
 
-### 8. Analytics
-- `topics`
-- `skills`
-- `student_question_stats`
-
-### 9. Gamification
-- `achievement_definitions`
-- `user_achievements`
-- `title_definitions`
-- `user_titles`
-- `user_counters`
-
-### 10. System
-- `notifications`
-- `activity_logs`
-
-### 11. Import
-- `import_batches`
-- `import_errors`
-- `assessment_import_links`
-
-## Главные пользовательские потоки
+## Основные пользовательские потоки
 
 ### Учитель
-1. получает кабинет и код подключения
-2. собирает учеников и группы
-3. создает или импортирует тест
-4. назначает тест
-5. проверяет результаты
-6. смотрит аналитику
+1. импортирует JSON-тест
+2. открывает карточку assessment
+3. создает assignment для ученика
+4. отслеживает review queue
+5. выставляет rubric/open scores
 
 ### Ученик
-1. подключается к учителю
-2. получает назначенный тест
-3. проходит попытку
-4. получает автооценку и ручную проверку
-5. видит прогресс и достижения
-
-### Родитель
-1. привязывается к ребенку
-2. смотрит прогресс
-3. видит результаты и комментарии
+1. открывает `Назначения`
+2. запускает attempt
+3. сохраняет ответы
+4. отправляет работу
+5. получает итог и комментарий учителя
 
 ### Администратор
-1. управляет справочниками и пользователями
-2. контролирует контент и импорт
-3. следит за ролями, правами и журналом событий
+1. входит в admin dashboard
+2. контролирует сводные показатели пользователей, тестов и импортов
 
-## Важные архитектурные правила
-- не зашивать предметы и классы в код
-- не хранить критерии в отдельных колонках вида `k1_score`
-- использовать versioning для тестов
-- сложные проверки выносить в сервисы
-- импорт держать отдельным модулем
-- проектировать под обычный PHP-хостинг и без обязательного SPA
+### Родитель
+1. имеет базовый dashboard и link к ребенку
+2. полноценный results/progress UI пока остается следующим этапом
 
-## Рекомендуемые сервисы
-- `AnswerCheckingService`
-- `ManualReviewService`
-- `AssignmentService`
-- `AchievementService`
-- `GradeCalculationService`
-- `AssessmentImportService`
-- `AssessmentImportValidator`
+## Архитектурные правила
+- бизнес-логика остается в сервисах, а не в controllers
+- роли и доступ регулируются policy + middleware
+- rubric criteria не превращаются в отдельные БД-колонки
+- import остается отдельным bounded module
+- версии assessment сохраняют воспроизводимость результатов
 
-## UI-принципы
-- современный интерфейс
-- подходит для 5-11 классов
-- не слишком детский
-- крупные и понятные элементы
-- прогресс-бары
-- понятные статусы
-- обязательная мобильная адаптация
-
-## Что считать источником правды
-- архитектура модулей: этот документ
-- таблицы и связи: `DATABASE_STRUCTURE.md`
-- порядок реализации: `IMPLEMENTATION_ROADMAP.md`
-- MVP-границы: `MVP_SCOPE.md`
-- импорт: `IMPORT_FORMAT_V1.md` и `LARAVEL_IMPORTER_PLAN.md`
+## Следующий технический backlog
+- teacher groups UI и assignment by group
+- отдельные student results/history screens
+- parent results/progress UI
+- admin CRUD pages
+- analytics, gamification, notifications
