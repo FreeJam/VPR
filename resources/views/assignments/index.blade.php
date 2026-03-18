@@ -27,6 +27,7 @@
                                     {{ Auth::user()->hasRole('teacher') ? 'Ученик' : 'Учитель' }}
                                 </th>
                                 <th class="px-4 py-3 text-left font-medium text-gray-500">Срок</th>
+                                <th class="px-4 py-3 text-left font-medium text-gray-500">Группа</th>
                                 <th class="px-4 py-3 text-left font-medium text-gray-500">Статус</th>
                                 <th class="px-4 py-3 text-left font-medium text-gray-500"></th>
                             </tr>
@@ -47,6 +48,7 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-3 text-gray-600">{{ $assignment->due_at?->format('d.m.Y H:i') ?? 'Без срока' }}</td>
+                                    <td class="px-4 py-3 text-gray-600">{{ $assignment->teacherGroup?->name ?? '—' }}</td>
                                     <td class="px-4 py-3">
                                         <div class="space-y-1">
                                             <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
@@ -67,7 +69,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-4 py-10 text-center text-gray-500">Назначений пока нет.</td>
+                                    <td colspan="7" class="px-4 py-10 text-center text-gray-500">Назначений пока нет.</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -23,13 +23,34 @@
                         У вас пока нет подтвержденных учеников. Сначала свяжите ученика с учителем через `teacher_student_links`.
                     </p>
                 @else
-                    <form method="POST" action="{{ route('assignments.store') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('assignments.store') }}" class="space-y-6" x-data="{ targetType: '{{ old('target_type', 'student') }}' }">
                         @csrf
                         <input type="hidden" name="assessment_version_id" value="{{ $version->id }}">
 
                         <div>
+                            <x-input-label value="Кому назначить" />
+                            <div class="mt-3 grid gap-3 md:grid-cols-2">
+                                <label class="flex items-start gap-3 rounded-lg border border-gray-200 px-4 py-3">
+                                    <input type="radio" name="target_type" value="student" class="mt-1" x-model="targetType" @checked(old('target_type', 'student') === 'student')>
+                                    <span class="text-sm text-gray-700">
+                                        <span class="block font-medium text-gray-900">Одному ученику</span>
+                                        <span class="block text-gray-500">Создать одно назначение напрямую ученику.</span>
+                                    </span>
+                                </label>
+                                <label class="flex items-start gap-3 rounded-lg border border-gray-200 px-4 py-3">
+                                    <input type="radio" name="target_type" value="group" class="mt-1" x-model="targetType" @checked(old('target_type') === 'group')>
+                                    <span class="text-sm text-gray-700">
+                                        <span class="block font-medium text-gray-900">Целой группе</span>
+                                        <span class="block text-gray-500">Создать отдельное назначение для каждого участника группы.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('target_type')" />
+                        </div>
+
+                        <div>
                             <x-input-label for="student_profile_id" value="Ученик" />
-                            <select id="student_profile_id" name="student_profile_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                            <select id="student_profile_id" name="student_profile_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500" x-bind:disabled="targetType !== 'student'">
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}" @selected(old('student_profile_id') == $student->id)>
                                         {{ $student->user->name }}{{ $student->gradeLevel ? ' • '.$student->gradeLevel->name : '' }}
@@ -37,6 +58,19 @@
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('student_profile_id')" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="teacher_group_id" value="Группа" />
+                            <select id="teacher_group_id" name="teacher_group_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500" x-bind:disabled="targetType !== 'group'">
+                                <option value="">Выберите группу</option>
+                                @foreach ($groups as $group)
+                                    <option value="{{ $group->id }}" @selected(old('teacher_group_id') == $group->id)>
+                                        {{ $group->name }} • {{ $group->members_count }} учен.
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('teacher_group_id')" />
                         </div>
 
                         <div>

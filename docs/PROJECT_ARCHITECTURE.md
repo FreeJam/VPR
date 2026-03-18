@@ -79,15 +79,17 @@
 - `attempt_criterion_scores`
 - `attempt_comments`
 - `AttemptFlowService`
+- teacher groups UI built on top of `teacher_groups` and `group_members`
 
 ## Основные пользовательские потоки
 
 ### Учитель
 1. импортирует JSON-тест
-2. открывает карточку assessment
-3. создает assignment для ученика
-4. отслеживает review queue
-5. выставляет rubric/open scores
+2. управляет linked students и teacher groups
+3. открывает карточку assessment
+4. создает assignment для ученика или группы
+5. отслеживает review queue
+6. выставляет rubric/open scores
 
 ### Ученик
 1. открывает `Назначения`
@@ -112,7 +114,6 @@
 - версии assessment сохраняют воспроизводимость результатов
 
 ## Следующий технический backlog
-- teacher groups UI и assignment by group
 - отдельные student results/history screens
 - parent results/progress UI
 - admin CRUD pages

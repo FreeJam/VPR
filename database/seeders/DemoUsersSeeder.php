@@ -82,6 +82,19 @@ class DemoUsersSeeder extends Seeder
             ['status' => 'approved', 'approved_at' => now()],
         );
 
+        $group = $teacher->teacherProfile->groups()->updateOrCreate(
+            ['name' => '6А Demo'],
+            [
+                'grade_level_id' => $gradeSixId,
+                'description' => 'Демонстрационная группа для локальной разработки',
+                'status' => 'active',
+            ],
+        );
+
+        $group->members()->updateOrCreate([
+            'student_profile_id' => $student->studentProfile->id,
+        ]);
+
         $parent->parentProfile->studentLinks()->updateOrCreate(
             ['student_profile_id' => $student->studentProfile->id],
             ['status' => 'approved'],

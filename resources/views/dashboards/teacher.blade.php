@@ -14,7 +14,15 @@
                 @endforeach
             </div>
 
-            <div class="grid gap-4 md:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-4">
+                <a href="{{ route('teacher.students.index') }}" class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:ring-sky-300">
+                    <p class="text-sm uppercase tracking-wide text-gray-500">База</p>
+                    <p class="mt-3 text-xl font-semibold text-gray-900">Мои ученики</p>
+                </a>
+                <a href="{{ route('teacher.groups.index') }}" class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:ring-sky-300">
+                    <p class="text-sm uppercase tracking-wide text-gray-500">База</p>
+                    <p class="mt-3 text-xl font-semibold text-gray-900">Мои группы</p>
+                </a>
                 <a href="{{ route('imports.create') }}" class="rounded-xl bg-sky-600 p-6 text-white shadow-sm transition hover:bg-sky-500">
                     <p class="text-sm uppercase tracking-wide text-sky-100">Шаг 1</p>
                     <p class="mt-3 text-xl font-semibold">Импортировать тест</p>

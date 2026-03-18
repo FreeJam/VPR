@@ -22,16 +22,18 @@
 - dashboards по ролям и role redirect
 - академические справочники и базовые seeders
 - teacher/student/parent profiles и demo links
+- teacher students/groups UI
 - import pipeline: upload -> validate -> preview -> import
 - assessments catalogue и assessment details
 - teacher -> student assignments
+- teacher -> group assignments
 - student attempts with draft/save/submit flow
 - auto scoring для objective questions
 - manual review queue и rubric-based scoring
 - recalculation of final score and grade label
 
 ## Что проверено
-- `php artisan test` -> `33 passed`, `110 assertions`
+- `php artisan test` -> `35 passed`, `125 assertions`
 - `php artisan migrate:fresh --seed` -> проходит
 - `php artisan route:list --except-vendor` -> маршруты поднимаются
 - `composer audit` -> advisories not found
@@ -43,6 +45,7 @@
 - `teacher@vpr.local` / `password`
 - `student@vpr.local` / `password`
 - `parent@vpr.local` / `password`
+- demo group after seed: `6А Demo`
 
 ## Практический вывод
 Проект уже не находится в стадии проектирования.

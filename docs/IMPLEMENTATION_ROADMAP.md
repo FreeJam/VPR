@@ -13,6 +13,8 @@
 - import module `v1.0`
 - assessment catalogue
 - assignments teacher -> student
+- teacher students/groups UI
+- assignments teacher -> group
 - attempts with draft/save/submit
 - auto scoring
 - manual review queue
@@ -29,10 +31,13 @@
 ## Следующие этапы
 
 ### Этап A. Teacher operations polish
-- teacher groups UI
-- назначения по группам
 - список linked students и заявки
 - более детальная страница результатов
+
+Статус:
+- teacher groups UI и group assignment уже готовы
+- linked students list уже готов
+- детальные results pages остаются следующим подэтапом
 
 ### Этап B. Student results polish
 - история попыток

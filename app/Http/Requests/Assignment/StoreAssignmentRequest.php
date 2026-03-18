@@ -17,13 +17,23 @@ class StoreAssignmentRequest extends FormRequest
     {
         return [
             'assessment_version_id' => ['required', 'integer', Rule::exists('assessment_versions', 'id')],
+            'target_type' => ['required', 'string', Rule::in(['student', 'group'])],
             'student_profile_id' => [
-                'required',
+                'nullable',
                 'integer',
+                Rule::requiredIf($this->input('target_type') === 'student'),
                 Rule::exists('teacher_student_links', 'student_profile_id')->where(function (Builder $query) {
                     $query
                         ->where('teacher_profile_id', $this->user()?->teacherProfile?->id)
                         ->where('status', 'approved');
+                }),
+            ],
+            'teacher_group_id' => [
+                'nullable',
+                'integer',
+                Rule::requiredIf($this->input('target_type') === 'group'),
+                Rule::exists('teacher_groups', 'id')->where(function (Builder $query) {
+                    $query->where('teacher_profile_id', $this->user()?->teacherProfile?->id);
                 }),
             ],
             'title' => ['nullable', 'string', 'max:255'],

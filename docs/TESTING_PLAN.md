@@ -13,12 +13,14 @@
 - import happy path
 - roles/access to imports
 - assignment creation
+- teacher students/groups flow
+- group assignment flow
 - student attempt flow
 - teacher manual review flow
 
 ## Текущий подтвержденный результат
-- `php artisan test` -> `33 passed`
-- `110 assertions`
+- `php artisan test` -> `35 passed`
+- `125 assertions`
 
 ## Дополнительно проверено
 - `php artisan migrate:fresh --seed`

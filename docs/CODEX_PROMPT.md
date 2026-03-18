@@ -6,8 +6,8 @@
 ## Фактическое состояние проекта
 - git и GitHub уже настроены
 - Laravel приложение уже создано
-- есть auth, роли, dashboards, import module, assignments, attempts, manual review
-- тесты проходят: `33 passed`
+- есть auth, роли, dashboards, import module, teacher students/groups, assignments, attempts, manual review
+- тесты проходят: `35 passed`
 - локально проект проверен на SQLite
 
 ## Что уже считается источником правды
@@ -20,18 +20,20 @@
 - роли `admin`, `teacher`, `student`, `parent`
 - import JSON `v1.0`
 - assessments catalogue
+- teacher students and groups
 - teacher assignments to student
+- teacher assignments to group
 - student attempts with save/submit
 - auto scoring
 - manual review queue
 - grade recalculation
 
 ## Приоритет дальнейшей разработки
-1. teacher groups UI и назначения по группам
-2. отдельные student results/history screens
-3. parent progress/results pages
-4. admin CRUD для предметов, классов, assessments
-5. analytics, notifications, gamification
+1. отдельные student results/history screens
+2. parent progress/results pages
+3. admin CRUD для предметов, классов, assessments
+4. analytics, notifications, gamification
+5. MySQL verification and production deployment polish
 
 ## Технические правила
 - не ломать текущий working flow import -> assignment -> attempt -> review

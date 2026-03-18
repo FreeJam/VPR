@@ -13,6 +13,10 @@
 
 ### Teacher
 - `/teacher`
+- `/teacher/students`
+- `/teacher/groups`
+- `/teacher/groups/create`
+- `/teacher/groups/{teacherGroup}`
 - `/imports`
 - `/imports/create`
 - `/imports/{importBatch}`
@@ -40,10 +44,9 @@
 
 ## Частично реализовано
 - parent role и link model есть, но отдельные results/progress pages пока не собраны
-- teacher groups и group members есть на уровне БД, но UI еще не сделан
 
 ## Следующие UI-экраны
-1. teacher students / requests / groups / codes
+1. teacher requests / codes
 2. student results history
 3. parent children progress
 4. admin CRUD pages

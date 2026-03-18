@@ -17,6 +17,7 @@
 - question types
 - teacher/student/parent profiles
 - teacher/student и parent/student demo links
+- teacher groups
 
 ### Контент и импорт
 - assessments
@@ -30,6 +31,7 @@
 
 ### Назначения и попытки
 - assignment учитель -> ученик
+- assignment учитель -> группа
 - start/save/submit attempt
 - хранение ответов
 - итоговые статусы попытки
@@ -41,7 +43,6 @@
 - final score + grade label recalculation
 
 ## Что пока вне MVP
-- teacher group assignment UI
 - student history/results pages как отдельный модуль
 - parent progress/results UI
 - advanced analytics

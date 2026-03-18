@@ -27,4 +27,9 @@ class TeacherGroup extends Model
     {
         return $this->hasMany(GroupMember::class);
     }
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

@@ -10,11 +10,14 @@ use App\Models\Attempt;
 use App\Models\AttemptQuestionReview;
 use App\Models\GradeLevel;
 use App\Models\GradingScale;
+use App\Models\TeacherGroup;
+use App\Models\TeacherStudentLink;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\QuestionType;
 use App\Models\Rubric;
 use App\Models\RubricCriterion;
+use App\Models\StudentProfile;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -32,6 +35,7 @@ class AssignmentWorkflowTest extends TestCase
 
         $response = $this->actingAs($teacher)->post(route('assignments.store'), [
             'assessment_version_id' => $version->id,
+            'target_type' => 'student',
             'student_profile_id' => $student->studentProfile->id,
             'title' => 'Домашняя работа по ВПР',
             'instructions' => 'Выполни оба задания и отправь работу.',
@@ -179,6 +183,87 @@ class AssignmentWorkflowTest extends TestCase
 
         $this->assertSame('checked', $attempt->status);
         $this->assertSame('Комментарий без rubric сохранен.', $review->comment);
+    }
+
+    public function test_teacher_can_create_group_and_see_linked_students_page(): void
+    {
+        $teacher = User::query()->where('email', 'teacher@vpr.local')->firstOrFail();
+        $secondStudent = $this->createLinkedStudent($teacher, 'group-student@vpr.local', 'Групповой ученик');
+
+        $studentsPage = $this->actingAs($teacher)->get(route('teacher.students.index'));
+
+        $studentsPage->assertOk()
+            ->assertSee('Student VPR')
+            ->assertSee('Групповой ученик');
+
+        $createResponse = $this->actingAs($teacher)->post(route('teacher.groups.store'), [
+            'name' => '6Б Подготовка',
+            'grade_level_id' => GradeLevel::query()->where('code', '6')->value('id'),
+            'description' => 'Группа для массовых назначений',
+            'member_ids' => [
+                User::query()->where('email', 'student@vpr.local')->firstOrFail()->studentProfile->id,
+                $secondStudent->id,
+            ],
+        ]);
+
+        $group = TeacherGroup::query()->where('name', '6Б Подготовка')->firstOrFail();
+
+        $createResponse->assertRedirect(route('teacher.groups.show', $group));
+        $this->assertCount(2, $group->fresh('members')->members);
+
+        $this->actingAs($teacher)
+            ->get(route('teacher.groups.show', $group))
+            ->assertOk()
+            ->assertSee('6Б Подготовка')
+            ->assertSee('Групповой ученик');
+    }
+
+    public function test_teacher_can_assign_assessment_to_group(): void
+    {
+        $teacher = User::query()->where('email', 'teacher@vpr.local')->firstOrFail();
+        $defaultStudent = User::query()->where('email', 'student@vpr.local')->firstOrFail()->studentProfile;
+        $secondStudent = $this->createLinkedStudent($teacher, 'group-assign@vpr.local', 'Ученик группы');
+        $version = $this->createAssessmentVersion($teacher);
+
+        $group = TeacherGroup::query()->create([
+            'teacher_profile_id' => $teacher->teacherProfile->id,
+            'grade_level_id' => GradeLevel::query()->where('code', '6')->value('id'),
+            'name' => 'Массовое назначение',
+            'description' => 'Проверка назначения по группе',
+            'status' => 'active',
+        ]);
+
+        $group->members()->createMany([
+            ['student_profile_id' => $defaultStudent->id],
+            ['student_profile_id' => $secondStudent->id],
+        ]);
+
+        $response = $this->actingAs($teacher)->post(route('assignments.store'), [
+            'assessment_version_id' => $version->id,
+            'target_type' => 'group',
+            'teacher_group_id' => $group->id,
+            'title' => 'Назначение группе',
+            'instructions' => 'Выполнить всем участникам группы.',
+            'mode' => 'homework',
+            'max_attempts' => 1,
+        ]);
+
+        $response->assertRedirect(route('teacher.groups.show', $group));
+        $this->assertSame(2, Assignment::query()->where('teacher_group_id', $group->id)->count());
+
+        $secondAssignment = Assignment::query()
+            ->where('teacher_group_id', $group->id)
+            ->where('student_profile_id', $secondStudent->id)
+            ->firstOrFail();
+
+        $this->assertSame('published', $secondAssignment->status);
+
+        $studentUser = $secondStudent->user;
+
+        $this->actingAs($studentUser)
+            ->get(route('assignments.index'))
+            ->assertOk()
+            ->assertSee('Назначение группе');
     }
 
     private function createAssessmentVersion(User $teacher): AssessmentVersion
@@ -345,5 +430,28 @@ class AssignmentWorkflowTest extends TestCase
         ]);
 
         return $version->fresh(['sections.questions']);
+    }
+
+    private function createLinkedStudent(User $teacher, string $email, string $name): StudentProfile
+    {
+        $user = User::factory()->create([
+            'email' => $email,
+            'name' => $name,
+        ]);
+        $user->assignRole('student', true);
+
+        $studentProfile = $user->studentProfile()->create([
+            'display_name' => $name,
+            'grade_level_id' => GradeLevel::query()->where('code', '6')->value('id'),
+        ]);
+
+        TeacherStudentLink::query()->create([
+            'teacher_profile_id' => $teacher->teacherProfile->id,
+            'student_profile_id' => $studentProfile->id,
+            'status' => 'approved',
+            'approved_at' => now(),
+        ]);
+
+        return $studentProfile->fresh('user');
     }
 }

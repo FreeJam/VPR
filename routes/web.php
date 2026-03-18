@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Import\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Review\ReviewController;
+use App\Http\Controllers\Teacher\TeacherGroupController;
+use App\Http\Controllers\Teacher\TeacherStudentController;
 use App\Models\Assessment;
 use App\Models\Assignment;
 use App\Models\ImportBatch;
@@ -90,6 +92,13 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
             ],
         ]);
     })->name('dashboard');
+
+    Route::get('/students', [TeacherStudentController::class, 'index'])->name('students.index');
+    Route::get('/groups', [TeacherGroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups/create', [TeacherGroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [TeacherGroupController::class, 'store'])->name('groups.store');
+    Route::get('/groups/{teacherGroup}', [TeacherGroupController::class, 'show'])->name('groups.show');
+    Route::patch('/groups/{teacherGroup}', [TeacherGroupController::class, 'update'])->name('groups.update');
 });
 
 Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {

@@ -23,6 +23,16 @@
                         </x-nav-link>
                     @endif
 
+                    @if (Auth::user()->hasRole('teacher'))
+                        <x-nav-link :href="route('teacher.students.index')" :active="request()->routeIs('teacher.students.*')">
+                            Ученики
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('teacher.groups.index')" :active="request()->routeIs('teacher.groups.*')">
+                            Группы
+                        </x-nav-link>
+                    @endif
+
                     @if (Auth::user()->hasRole('admin', 'teacher'))
                         <x-nav-link :href="route('imports.index')" :active="request()->routeIs('imports.*')">
                             Импорт
@@ -97,6 +107,16 @@
             @if (Auth::user()->hasRole('teacher', 'student'))
                 <x-responsive-nav-link :href="route('assignments.index')" :active="request()->routeIs('assignments.*') || request()->routeIs('attempts.*')">
                     Назначения
+                </x-responsive-nav-link>
+            @endif
+
+            @if (Auth::user()->hasRole('teacher'))
+                <x-responsive-nav-link :href="route('teacher.students.index')" :active="request()->routeIs('teacher.students.*')">
+                    Ученики
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('teacher.groups.index')" :active="request()->routeIs('teacher.groups.*')">
+                    Группы
                 </x-responsive-nav-link>
             @endif
 
